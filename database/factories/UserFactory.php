@@ -27,18 +27,22 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\Thread::class, function (Faker $faker) {
-    return [
-        'user_id' => App\User::all()->random()->id,
-        'title' => $faker->sentence,
-        'body' => $faker->paragraph,
-    ];
-});
+// $factory->define(App\Thread::class, function (Faker $faker) {
+//     return [
+//         'user_id' => App\User::all()->random()->id,
+//         'title' => $faker->sentence,
+//         'body' => $faker->paragraph,
+//     ];
+// });
 
 $factory->define(App\Reply::class, function (Faker $faker) {
     return [
-        'thread_id' => App\Thread::all()->random()->id,
-        'user_id' => App\User::all()->random()->id,
+        'user_id' => function() {
+			return factory('App\User')->create()->id;
+		},
+		'thread_id' => function() {
+			return factory('App\Thread')->create()->id;
+		},
         'body' => $faker->paragraph,
     ];
 });

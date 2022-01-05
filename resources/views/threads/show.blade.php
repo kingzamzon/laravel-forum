@@ -26,5 +26,27 @@
             @include('threads.reply')
         @endforeach
     </div>
+
+    <br> <br>
+
+    @if (auth()->check())
+        
+    <div class="row justify-content-center">
+        <form action="{{ route('threads.replies', ['thread' => $thread->id]) }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <textarea name="body" id="body" class="form-control" cols="70" rows="5" placeholder="Have something to say?"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-default">Post</button>
+        </form>
+    </div>
+
+    @else 
+    <div class="row justify-content-center">
+        <p>Please <a href="{{ route('login') }}">sign in</a> to participate in this discussion</p>
+    </div>
+    @endif
+
 </div>
 @endsection

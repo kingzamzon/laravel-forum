@@ -25,12 +25,12 @@ class ParticipateInForumTest extends TestCase
     {
         // $user = factory(App\User::class)->create();
         // create user and authenticate it.
-        $this->be($user = factory(User::class)->create());
+        $this->be(create(User::class));
         
-        $thread = factory(Thread::class)->create();
+        $thread = create(Thread::class);
 
         // make reply so it won't create twice
-        $reply = factory(Reply::class)->make();
+        $reply = make(Reply::class);
         $this->post('/threads/'.$thread->id.'/replies', $reply->toArray());
     
         $this->get('/threads/'.$thread->id)

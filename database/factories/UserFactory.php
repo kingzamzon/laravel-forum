@@ -27,13 +27,25 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-// $factory->define(App\Thread::class, function (Faker $faker) {
-//     return [
-//         'user_id' => App\User::all()->random()->id,
-//         'title' => $faker->sentence,
-//         'body' => $faker->paragraph,
-//     ];
-// });
+$factory->define(App\Channel::class, function (Faker $faker) {
+    $name = $faker->word;
+    return [
+        'name' => $name,
+        'slug' => $name,
+    ];
+});
+
+
+$factory->define(App\Thread::class, function (Faker $faker) {
+    return [
+        'user_id' => App\User::all()->random()->id,
+        'channel_id' => function() {
+			return factory('App\Channel')->create()->id;
+		},
+        'title' => $faker->sentence,
+        'body' => $faker->paragraph,
+    ];
+});
 
 $factory->define(App\Reply::class, function (Faker $faker) {
     return [

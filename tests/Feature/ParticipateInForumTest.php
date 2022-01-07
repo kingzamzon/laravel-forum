@@ -17,7 +17,7 @@ class ParticipateInForumTest extends TestCase
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
         
-        $this->post('/threads/1/replies', []);    
+        $this->post('/threads/some-channel/1/replies', []);    
     }
 
     /** @test */
@@ -29,11 +29,12 @@ class ParticipateInForumTest extends TestCase
         
         $thread = create(Thread::class);
 
+
         // make reply so it won't create twice
         $reply = make(Reply::class);
-        $this->post('/threads/'.$thread->id.'/replies', $reply->toArray());
+        $this->post($thread->path() .'/replies', $reply->toArray());
     
-        $this->get('/threads/'.$thread->id)
+        $this->get($thread->path())
             ->assertSee($reply->body);
     }
 }

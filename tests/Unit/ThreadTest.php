@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\User;
 use App\Reply;
+use App\Channel;
 use App\Thread;
 use Tests\TestCase;
 
@@ -16,6 +17,18 @@ class ThreadTest extends TestCase
         parent::setUp();
 
         $this->thread = factory(Thread::class)->create();
+    }
+
+    /** @test */
+    public function test_a_thread_can_make_a_string_path()
+    {
+        $thread = create(Thread::class);
+
+        // $this->assertEquals('/threads/'.$thread->channel->slug.'/'.$thread->id, $thread->path());
+        $this->assertEquals(
+            "/threads/{$thread->channel->slug}/{$thread->id}",
+            $thread->path()
+        );
     }
 
     /**
@@ -41,5 +54,12 @@ class ThreadTest extends TestCase
         ]);
 
         $this->assertCount(1, $this->thread->replies);
+    }
+
+    public function test_a_thread_belongs_to_a_channel()
+    {
+        $thread = create(Thread::class);
+
+        $this->assertInstanceOf(Channel::class, $thread->channel);
     }
 }

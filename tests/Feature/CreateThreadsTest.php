@@ -35,11 +35,11 @@ class CreateThreadsTest extends TestCase
         $this->signIn();
 
         // raw returns the array, make returns the instance
-        $thread = make(Thread::class);
+        $thread = create(Thread::class);
 
         $this->post('/threads', $thread->toArray());
 
-        $this->get('/threads')
+        $this->get($thread->path())
             ->assertSee($thread->title)
             ->assertSee($thread->body);
     }

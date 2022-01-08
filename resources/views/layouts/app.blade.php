@@ -18,7 +18,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body style="padding-bottom: 100px">
     <div id="app">
@@ -37,6 +39,11 @@
                         <li>
                             <a class="nav-link" href="{{ route('threads.index') }}">{{ __('All Threads') }}</a>
                         </li>
+
+                        <li>
+                            <a class="nav-link" href="{{ route('threads.create') }}">{{ __('New Thread') }}</a>
+                        </li>
+
                         <li class="dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Channels
@@ -53,6 +60,7 @@
                             </ul>
                         </li>
                     </ul>
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

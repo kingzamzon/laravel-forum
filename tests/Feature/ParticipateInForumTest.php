@@ -28,13 +28,25 @@ class ParticipateInForumTest extends TestCase
         $this->be(create(User::class));
         
         $thread = create(Thread::class);
-
-
         // make reply so it won't create twice
         $reply = make(Reply::class);
+
         $this->post($thread->path() .'/replies', $reply->toArray());
     
         $this->get($thread->path())
             ->assertSee($reply->body);
+    }
+
+    public function test_a_reply_requires_a_body()
+    {
+        $this->expectException('Illuminate\Validation\ValidationException');
+
+        $this->signIn();
+
+        $thread = create(Thread::class);
+        $reply = make(Reply::class, ["body" => null]);
+
+        $this->post($thread->path() .'/replies', $reply->toArray())
+            ->assertSessionHasErrors('body');
     }
 }

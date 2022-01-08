@@ -37,6 +37,21 @@
                         <li>
                             <a class="nav-link" href="{{ route('threads.index') }}">{{ __('All Threads') }}</a>
                         </li>
+                        <li class="dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Channels
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (App\Channel::all() as $channel)
+                                    <li>
+                                        <a href="/threads/{{ $channel->slug }}">
+                                        {{ $channel->name}}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

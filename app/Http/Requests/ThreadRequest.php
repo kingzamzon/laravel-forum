@@ -26,7 +26,7 @@ class ThreadRequest extends FormRequest
         return [
             'title' => 'required',
             'body' => 'required',
-            'channel' => 'required|exists:channels,id'
+            'channel_id' => 'required|exists:channels,id'
         ];
     }
 
@@ -40,7 +40,7 @@ class ThreadRequest extends FormRequest
         return [
             'title.required' => 'title field is empty.',
             'body.required' => 'body field is empty.',
-            'channel.required' => 'channel field is empty.'
+            'channel_id.required' => 'channel field is empty.'
         ];
     }
 }

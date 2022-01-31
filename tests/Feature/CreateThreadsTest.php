@@ -36,7 +36,7 @@ class CreateThreadsTest extends TestCase
         $this->signIn();
 
         // raw returns the array, make returns the instance
-        $thread = make(Thread::class);
+        $thread = make(Thread::class, ['channel' => 1]);
 
         $response = $this->post('/threads', $thread->toArray());
 
@@ -63,7 +63,7 @@ class CreateThreadsTest extends TestCase
 
     public function test_a_thread_requires_a_valide_channel()
     {
-        $this->expectException('Illuminate\Database\QueryException');
+        $this->expectException('Illuminate\Validation\ValidationException');
 
         $this->publishThread(['channel_id' => null])
             ->assertSessionHasErrors('channel_id');
@@ -72,7 +72,7 @@ class CreateThreadsTest extends TestCase
 
     public function test_a_thread_requires_a_existing_channel()
     {
-        $this->expectException('ErrorException');
+        $this->expectException('Illuminate\Validation\ValidationException');
 
         factory(Channel::class, 2)->create();
 

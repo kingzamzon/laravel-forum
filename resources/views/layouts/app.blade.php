@@ -36,12 +36,23 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        
                         <li>
-                            <a class="nav-link" href="{{ route('threads.index') }}">{{ __('All Threads') }}</a>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                  Browse
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="{{ route('threads.index') }}">All Threads</a>
+                                  @if(auth()->check())
+                                  <a class="dropdown-item" href="/threads?by={{ auth()->user()->name}}">My Threads</a>
+                                  @endif
+                                </div>
+                              </div>
                         </li>
 
                         <li>
-                            <a class="nav-link" href="{{ route('threads.create') }}">{{ __('New Thread') }}</a>
+                            <a class="nav-link" href="{{ route('threads.create') }}"> New Thread</a>
                         </li>
 
                         <li class="dropdown">
@@ -51,8 +62,8 @@
 
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @foreach ($channels as $channel)
-                                    <li>
-                                        <a href="/threads/{{ $channel->slug }}">
+                                    <li >
+                                        <a class="dropdown-item" href="/threads/{{ $channel->slug }}">
                                         {{ $channel->name}}
                                         </a>
                                     </li>

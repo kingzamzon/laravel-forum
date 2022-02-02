@@ -24,7 +24,9 @@ class FavouriteController extends Controller
         // due to polymorphic relationship
         // $reply->favourites()->create(['user_id' => auth()->id()]);
 
-        return $reply->favourite();
+        $reply->favourite();
+
+        return back();
     }
 
 }

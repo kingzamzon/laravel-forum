@@ -75,6 +75,8 @@ class ThreadController extends Controller
      */
     public function show($channelId, Thread $thread)
     {
+        $thread = $thread->load('replies.favourites');
+
         return view('threads.show', [
             'thread' => $thread,
             'replies' => $thread->replies()->paginate(20)

@@ -21,6 +21,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            padding-bottom: 100px;
+        }
+        .level {
+            display: flex;
+            align-items: center;
+        }
+        .flex {
+            flex: 1;
+        }
+    </style>
 </head>
 <body style="padding-bottom: 100px">
     <div id="app">
@@ -47,6 +60,7 @@
                                   @if(auth()->check())
                                   <a class="dropdown-item" href="/threads?by={{ auth()->user()->name}}">My Threads</a>
                                   @endif
+                                  <a class="dropdown-item" href="/threads?popular=1">Popular All Threads</a>
                                 </div>
                               </div>
                         </li>

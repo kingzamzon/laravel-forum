@@ -29,8 +29,12 @@ class ThreadController extends Controller
             $threads->where('channel_id', $channel->id);
         }
 
-
         $threads = Thread::filter($filters)->get();
+
+        if (request()->wantsJson()) 
+        {
+            return response()->json($threads);
+        }
 
         return view('threads.index', compact('threads'));
     }

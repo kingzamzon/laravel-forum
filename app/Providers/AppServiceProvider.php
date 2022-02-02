@@ -16,6 +16,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // PATCH: https://laravel.com/docs/master/migrations#indexes
         Schema::defaultStringLength(191);
+
+        if (env('APP_DEBUG')) {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
     }
 
     /**
@@ -26,7 +30,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer('*', function ($view) {
-            $view->with('channels', \App\Channel::all());
+            $channels = \Cache::rememberForever('channels', function() {
+                return \App\Channel::all();
+            });
+            $view->with('channels', $channels);
         });
         // \View::share('channels', \App\Channel::all());
     }

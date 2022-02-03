@@ -119,7 +119,17 @@ class ThreadController extends Controller
      */
     public function destroy($channel, Thread $thread)
     {
-        // $thread->replies()->delete();
+        // thread policy
+        $this->authorize('update', $thread);
+
+        // // $thread->replies()->delete();
+        // if ($thread->user_id != auth()->id()) {
+        //     if (request()->wantsJson()) {
+        //         return response(['status' => 'Permssion Denied'], 403);
+        //     }
+
+        //     return redirect('/login');
+        // }
 
         $thread->delete();
 

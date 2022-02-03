@@ -41,4 +41,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reply::class, 'user_id');
     }
+
+    /**
+     * Get the route key  name for laravel
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
+    public function threads()
+    {
+        return $this->hasMany(Thread::class)->latest();
+    }
 }

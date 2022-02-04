@@ -13,4 +13,9 @@ class Activity extends Model
         // this will figure out the relationship
         return $this->morphTo();
     }
+
+    public function feed($user)
+    {
+        
+    }
 }

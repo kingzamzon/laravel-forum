@@ -39,3 +39,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+
+window.events = new Vue(); //vue.$emit
+
+window.flash = function (message) {
+    window.events.$emit('flash', message);
+}; // flash("ssdsdsd")

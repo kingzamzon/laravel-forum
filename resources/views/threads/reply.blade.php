@@ -1,4 +1,4 @@
-<div class="mt-3 mb-3">
+<div id="reply-{{ $reply->id }}" class="mt-3 mb-3">
     <div class="card">
         <div class="card-header">
             <div class="level">

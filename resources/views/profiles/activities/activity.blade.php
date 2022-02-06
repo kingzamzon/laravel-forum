@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div class="card mt-3 mb-2">
     <div class="card-header">
         <div class="level">
             <span class="flex">

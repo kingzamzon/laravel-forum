@@ -79,5 +79,31 @@ class ParticipateInForumTest extends TestCase
                 ]);
     }
 
+    public function test_unauthorized_user_update_replies()
+    {
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+
+        $reply = create(Reply::class);
+
+        // for signin user
+        $this->signIn()
+            ->patch("/replies/{$reply->id}")
+            ->assertStatus(403);
+    }
+
+    public function test_authorized_user_update_replies()
+    {
+        $this->signIn();
+
+        $reply = create(Reply::class, ['user_id' => auth()->id()]);
+
+        $updatedReply = "'You have been changed, fool";
+        $this->patch("/replies/{$reply->id}", ['body' => $updatedReply]);
+
+        $this->assertDatabaseHas('replies', [
+                    'id' => $reply->id, 
+                    'body' => $updatedReply
+                ]);
+    }
 
 }

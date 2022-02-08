@@ -1,3 +1,4 @@
+<reply :attributes="{{ $reply }}" inline-template v-clock>
 <div id="reply-{{ $reply->id }}" class="mt-3 mb-3">
     <div class="card">
         <div class="card-header">
@@ -23,11 +24,22 @@
         </div>
 
         <div class="card-body">
-            {{ $reply->body }}
+            <div v-if="editing">
+                <div class="form-group">
+                    <textarea class="form-control" v-model="body"></textarea>
+                </div>
+
+                <button class="btn btn-xs btn-primary" @click="update">Update</button>
+                <button class="btn btn-xs btn-link" @click="editing = false">Cancel</button>
+            </div>
+            <div v-else v-text="body">
+            </div>
         </div>
 
         @can('update', $reply)
-        <div class="card-footer">
+        <div class="card-footer level">
+            <button class="btn btn-warning btn-xs mr-1" @click="editing = true">Edit</button>
+            
             <form action="{{ route('replies.delete', ['reply' => $reply->id]) }}" method="post">
                 @csrf
                 @method('DELETE')
@@ -37,3 +49,5 @@
         @endcan
     </div>
 </div>
+
+</reply>

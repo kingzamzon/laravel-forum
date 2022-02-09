@@ -13,12 +13,6 @@
 
                 <div>
                     <favourite :reply="{{ $reply }}"></favourite>
-
-                    {{-- <form action="{{ route('favourites.replies', ['reply' => $reply->id]) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-primary" {{ $reply->isFavourited() ? 'disabled' : '' }}>
-                            {{ $reply->favourites_count }} Favourite</button>
-                    </form> --}}
                 </div>
             </div>
         </div>

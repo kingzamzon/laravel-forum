@@ -35,7 +35,7 @@
         .mr-1 {
             margin-right: 1em;
         }
-        [v-clock] {display: none;}
+        [v-cloak] {display: none;}
     </style>
 </head>
 <body style="padding-bottom: 100px">

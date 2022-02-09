@@ -33,6 +33,21 @@ class FavouriteTest extends TestCase
     }
 
     /** @test */
+    public function test_an_authenticated_user_can_unfavourite_any_reply()
+    {
+        $this->signIn();
+        
+        $reply = create(Reply::class);
+
+        $reply->favourite();
+
+        
+        $this->delete('replies/'. $reply->id. '/favourites');
+        $this->assertCount(0, $reply->favourites);
+
+    }
+
+    /** @test */
     public function test_an_authenticated_user_may_only_favourite_a_reply_once()
     {
         $this->signIn();

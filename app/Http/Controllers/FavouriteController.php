@@ -29,4 +29,14 @@ class FavouriteController extends Controller
         return back();
     }
 
+    public function destroy(Reply $reply)
+    {
+        // due to polymorphic relationship
+        // $reply->favourites()->create(['user_id' => auth()->id()]);
+
+        $reply->unfavourite();
+
+        // return back();
+    }
+
 }

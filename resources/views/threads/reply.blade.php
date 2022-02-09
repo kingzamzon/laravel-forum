@@ -1,4 +1,4 @@
-<reply :attributes="{{ $reply }}" inline-template v-clock>
+<reply :attributes="{{ $reply }}" inline-template v-cloak>
 <div id="reply-{{ $reply->id }}" class="mt-3 mb-3">
     <div class="card">
         <div class="card-header">
@@ -12,13 +12,13 @@
                 </h5>
 
                 <div>
-                    
+                    <favourite :reply="{{ $reply }}"></favourite>
 
-                    <form action="{{ route('favourites.replies', ['reply' => $reply->id]) }}" method="post">
+                    {{-- <form action="{{ route('favourites.replies', ['reply' => $reply->id]) }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-primary" {{ $reply->isFavourited() ? 'disabled' : '' }}>
                             {{ $reply->favourites_count }} Favourite</button>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>

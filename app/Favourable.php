@@ -5,7 +5,13 @@ namespace App;
 
 trait Favourable
 {
-    
+    protected static function bootFavourable()
+    {   
+        static::deleting(function ($model) {
+            $model->favourites->each->delete();
+        });
+    }
+
     public function favourites()
     {
         return $this->morphMany(Favourite::class, 'favourited');
@@ -25,7 +31,7 @@ trait Favourable
     {
         $attributes = ['user_id' => auth()->id()];
 
-        $this->favourites()->delete($attributes);
+        $this->favourites()->where($attributes)->get()->each->delete();
 
     }
 

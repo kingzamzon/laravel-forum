@@ -20,7 +20,7 @@ require('./bootstrap');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('flash', require('./components/FlashComponent.vue').default);
-Vue.component('reply', require('./components/ReplyComponent.vue').default);
+Vue.component('thread-view', require('./pages/ThreadComponent.vue').default);
 // Vue.component('favourite', require('./components/FavouriteComponent.vue').default);
 
 /**

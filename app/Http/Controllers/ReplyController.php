@@ -103,10 +103,9 @@ class ReplyController extends Controller
         //     return response([], 403);
         // }
         
-         $this->authorize('update', $reply);
+        //  $this->authorize('update', $reply);
 
         $reply->delete();
 
-        return back();
     }
 }

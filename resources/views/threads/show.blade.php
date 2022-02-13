@@ -33,22 +33,13 @@
                 </div>
             </div>
 
-            <replies :data="{{ $thread->replies }}" @removed="repliesCount--" 
+            <replies :data="{{ $thread->replies }}" 
+                @added="repliesCount++"
+                @removed="repliesCount--" 
                 ></replies>
             
 
-            @if (auth()->check())
-                <form action="{{ route('threads.replies', ['channel' => $thread->channel->slug, 'thread' => $thread->id]) }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <textarea name="body" id="body" class="form-control" cols="70" rows="5" placeholder="Have something to say?"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-default">Post</button>
-                </form>
-            @else 
-                <p>Please <a href="{{ route('login') }}">sign in</a> to participate in this discussion</p>
-            @endif
+            
         </div>
 
         <div class="col-md-4">

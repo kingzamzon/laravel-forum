@@ -33,8 +33,8 @@ class ParticipateInForumTest extends TestCase
 
         $this->post($thread->path() .'/replies', $reply->toArray());
     
-        $this->get($thread->path())
-            ->assertSee($reply->body);
+        $this->assertDatabaseHas('replies', ['body' => $reply->body]);
+        $this->assertEquals(1, $thread->fresh()->replies_count);
     }
 
     public function test_a_reply_requires_a_body()
@@ -70,13 +70,14 @@ class ParticipateInForumTest extends TestCase
 
         // for signin user
         $this->delete("/replies/{$reply->id}")
-            ->assertStatus(302);
+            ->assertStatus(200);
 
         // 
         $this->assertDatabaseMissing('replies', [
                     'id' => $reply->id, 
                     'user_id' => auth()->id()
                 ]);
+        $this->assertEquals(0, $reply->thread->fresh()->replies_count);
     }
 
     public function test_unauthorized_user_update_replies()

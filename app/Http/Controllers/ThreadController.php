@@ -84,8 +84,7 @@ class ThreadController extends Controller
         $thread = $thread->load('replies.favourites');
 
         return view('threads.show', [
-            'thread' => $thread,
-            'replies' => $thread->replies()->paginate(20)
+            'thread' => $thread
         ]);
     }
 

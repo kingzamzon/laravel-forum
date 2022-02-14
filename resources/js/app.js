@@ -21,7 +21,7 @@ require('./bootstrap');
 
 Vue.component('flash', require('./components/FlashComponent.vue').default);
 Vue.component('thread-view', require('./pages/ThreadComponent.vue').default);
-// Vue.component('favourite', require('./components/FavouriteComponent.vue').default);
+Vue.component('paginator', require('./components/PaginatorComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

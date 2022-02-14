@@ -8,7 +8,8 @@
                        v-text="data.owner.name">
                     </a>
                     said
-                    {{ data.created_at }}
+                    <span v-text="ago"></span>
+                    
                 </h5>
 
                 <div v-if="signedIn">
@@ -45,6 +46,7 @@
 <script>
 
     import Favourite from './FavouriteComponent.vue';
+    import moment from 'moment'; 
     
     export default {
         components: { Favourite },
@@ -60,6 +62,9 @@
         },
 
         computed: {
+            ago() {
+                return moment(this.data.created_at).fromNow() + '...'; 
+            },
             signedIn() {
                 return window.Larav.signedIn;
             },

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="signedIn">
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <textarea name="body" 
                             id="body" 
                             class="form-control" 
@@ -27,7 +27,6 @@
 <script>
 
 export default {
-    props: ['endpoint'],
 
    data() {
        return {
@@ -43,7 +42,7 @@ export default {
 
    methods: {
        addReply() {
-           axios.post(this.endpoint, { body: this.body} )
+           axios.post( location.pathname + '/replies', { body: this.body} )
                 .then(({data}) => {
                     this.body = '';
 

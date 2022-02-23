@@ -62,7 +62,7 @@ class ParticipateInForumTest extends TestCase
             ->assertStatus(403);
     }
 
-    public function test_authorized_user_cannot_delete_replies()
+    public function test_authorized_user_can_delete_replies()
     {
         $this->signIn();
 

@@ -33,7 +33,17 @@ Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store')->nam
 Route::patch('/replies/{reply}', 'ReplyController@update')->name('replies.update');
 Route::delete('/replies/{reply}', 'ReplyController@destroy')->name('replies.delete');
 
+Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store');
+
+Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@destroy');
+
 Route::post('/replies/{reply}/favourites', 'FavouriteController@store')->name('favourites.replies');
 Route::delete('/replies/{reply}/favourites', 'FavouriteController@destroy')->name('favourites.delete');
 
 Route::get('/profile/{user}', 'ProfileController@show')->name('user.profile');
+
+Route::get('/profile/{user}/notifications', 'UserNotificationsController@index')
+        ->name('user.notifications');
+
+Route::delete('/profile/{user}/notifications/{notification}', 'UserNotificationsController@destroy')
+        ->name('user.notification.clear');

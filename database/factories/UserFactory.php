@@ -4,6 +4,8 @@
 
 use App\User;
 use Faker\Generator as Faker;
+use Faker\Provider\Uuid;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Str;
 
 /*
@@ -35,7 +37,6 @@ $factory->define(App\Channel::class, function (Faker $faker) {
     ];
 });
 
-
 $factory->define(App\Thread::class, function (Faker $faker) {
     return [
         'user_id' => App\User::all()->random()->id,
@@ -56,5 +57,18 @@ $factory->define(App\Reply::class, function (Faker $faker) {
 			return factory('App\Thread')->create()->id;
 		},
         'body' => $faker->paragraph,
+    ];
+});
+
+
+$factory->define(DatabaseNotification::class, function ($faker) {
+    return [
+        'id' => Str::uuid()->toString(),
+        'type' => 'App\Notifications\ThreadWasUpdated',
+        'notifiable_id' => function () {
+            return auth()->id() ?: factory(User::class)->create()->id;
+        },
+        'notifiable_type' => 'App\User',
+        'data' => ['foo' => 'bar']
     ];
 });

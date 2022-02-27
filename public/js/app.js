@@ -1970,6 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       body: '',
+      level: 'success',
       show: false
     };
   },
@@ -1985,8 +1986,9 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    flash: function flash(message) {
-      this.body = message;
+    flash: function flash(data) {
+      this.body = data.message;
+      this.level = data.level;
       this.show = true;
       this.hide();
     },
@@ -2054,6 +2056,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post(location.pathname + '/replies', {
         body: this.body
+      })["catch"](function (error) {
+        flash(error.response.data, 'danger');
       }).then(function (_ref) {
         var data = _ref.data;
         _this.body = '';
@@ -2286,11 +2290,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     update: function update() {
+      var _this2 = this;
+
       axios.patch('/replies/' + this.data.id, {
         body: this.body
+      }).then(function () {
+        _this2.editing = false;
+        flash("Updated");
+      })["catch"](function (error) {
+        flash(error.response.data, 'danger');
       });
-      this.editing = false;
-      flash("Updated");
     },
     destroy: function destroy() {
       axios["delete"]('/replies/' + this.data.id);
@@ -60267,10 +60276,11 @@ var render = function () {
           expression: "show",
         },
       ],
-      staticClass: "alert alert-success alert-flash",
+      staticClass: "alert alert-flash",
+      class: "alert-" + _vm.level,
       attrs: { role: "alert" },
     },
-    [_c("strong", [_vm._v("Success!")]), _vm._v(" " + _vm._s(_vm.body) + "\n")]
+    [_vm._v("\n    " + _vm._s(_vm.body) + "\n")]
   )
 }
 var staticRenderFns = []
@@ -73045,7 +73055,11 @@ window.Vue.prototype.authorize = function (handler) {
 };
 
 window.flash = function (message) {
-  window.events.$emit('flash', message);
+  var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+  window.events.$emit('flash', {
+    message: message,
+    level: level
+  });
 }; // flash("ssdsdsd")
 
 /***/ }),

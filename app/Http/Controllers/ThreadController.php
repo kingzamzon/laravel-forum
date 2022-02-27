@@ -7,6 +7,7 @@ use App\Thread;
 use App\Channel;
 use App\Filters\ThreadFilters;
 use App\Http\Requests\ThreadRequest;
+use App\Inspections\Spam;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -61,8 +62,10 @@ class ThreadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ThreadRequest $request)
+    public function store(ThreadRequest $request, Spam $spam)
     {
+        $spam->detect(request('body'));
+        
         $thread = Thread::create([
             'user_id' => auth()->user()->id,
             'title' => request('title'),

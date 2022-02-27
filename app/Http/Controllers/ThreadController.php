@@ -7,6 +7,7 @@ use App\Thread;
 use App\Channel;
 use App\Filters\ThreadFilters;
 use App\Http\Requests\ThreadRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -81,6 +82,16 @@ class ThreadController extends Controller
      */
     public function show($channelId, Thread $thread)
     {
+
+        // record that user visited this page
+        // record a timestamp
+        if(auth()->check()) {
+            auth()->user()->read($thread);
+        }
+        // $key = sprintf("users.%s.visits.%s", auth()->id(), $thread->id);
+
+        // cache()->forever($key, Carbon::now());
+
         $thread = $thread->load('replies.favourites');
 
         return view('threads.show', [

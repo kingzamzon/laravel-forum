@@ -26,7 +26,6 @@ class NotifyThreadSubscribers
      */
     public function handle(ThreadHasNewReply $event)
     {
-        dd($event->reply);
          // prepare notifications for all subscribers
          $event->thread->subscriptions
          ->where('user_id', '!=', $event->reply->user_id)

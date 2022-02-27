@@ -77,9 +77,7 @@ class Thread extends Model
     {
         $reply =  $this->replies()->create($reply);
 
-        // dd($this);
-        $john = 222;
-        // event(new ThreadHasNewReply($john, $reply));
+        // event(new ThreadHasNewReply($this, $reply));
         
        $this->notifySubscribers($reply);
 
